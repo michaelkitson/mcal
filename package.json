@@ -1,6 +1,6 @@
 {
   "name": "mcal",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Recreation of the unix cal utility, highlighting the current day",
   "bin" : { "mcal" : "index.js" },
   "repository": {
