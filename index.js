@@ -2,7 +2,7 @@
 (function () {
     "use strict";
 
-    var monthLabels = [
+    const monthLabels = [
         'January',
         'February',
         'March',
@@ -17,7 +17,7 @@
         'December'
     ];
 
-    var dayLabels = [
+    const dayLabels = [
         'Su',
         'Mo',
         'Tu',
@@ -56,7 +56,7 @@
      * @returns {string} The padded string
      */
     function leftPadToCenter(text, width) {
-        return " ".repeat(Math.floor((width - text.length) / 2)) + text
+        return " ".repeat(Math.floor((width - text.length) / 2)) + text;
     }
 
     /**
@@ -79,23 +79,23 @@
      */
     function getMonth(year, month, includeYearInLabel) {
         includeYearInLabel = includeYearInLabel || false;
-        var lines = new Array(8).fill('');
+        let lines = new Array(8).fill('');
 
-        var now = new Date();
-        var firstOfMonth = new Date(year, month, 1);
-        var endOfMonth = new Date(year, month + 1, 1, -1);
+        const now = new Date();
+        const firstOfMonth = new Date(year, month, 1);
+        const endOfMonth = new Date(year, month + 1, 1, -1);
 
-        var weekday = firstOfMonth.getDay();
-        var lastDayOfMonth = endOfMonth.getDate();
+        const weekday = firstOfMonth.getDay();
+        const lastDayOfMonth = endOfMonth.getDate();
 
         lines[0] = leftPadToCenter(monthLabels[month] + (includeYearInLabel ? ' ' + year : ''), 20);
         lines[1] = dayLabels.join(' ');
 
-        var currentLine = 2;
+        let currentLine = 2;
         lines[currentLine] = "   ".repeat(weekday);
 
-        for (var i = 1; i <= lastDayOfMonth; i++) {
-            if ((weekday + i - 1) % 7 == 0 && i != 1) {
+        for (let i = 1; i <= lastDayOfMonth; i++) {
+            if ((weekday + i - 1) % 7 === 0 && i !== 1) {
                 currentLine += 1;
             } else if (i > 1) {
                 lines[currentLine] += ' ';
@@ -104,9 +104,9 @@
             if (i < 10) {
                 lines[currentLine] += ' ';
             }
-            var printableDay = '' + i;
-            if (i === now.getDate() && year == now.getFullYear() && month == now.getMonth()) {
-                printableDay = invertTerminalColor(printableDay)
+            let printableDay = '' + i;
+            if (i === now.getDate() && year === now.getFullYear() && month === now.getMonth()) {
+                printableDay = invertTerminalColor(printableDay);
             }
             lines[currentLine] += printableDay;
         }
@@ -120,8 +120,8 @@
      * @param {int} month
      */
     function printMonth(year, month) {
-        var lines = getMonth(year, month, true);
-        for (let line of lines) {
+        const lines = getMonth(year, month, true);
+        for (const line of lines) {
             console.log(line);
         }
     }
@@ -142,8 +142,9 @@
          * @param {string[]} thirdLines
          */
         function print3Months(firstLines, secondLines, thirdLines) {
-            for (var i = 0; i < firstLines.length; i++) {
-                console.log(rightPad(firstLines[i], 22) + rightPad(secondLines[i], 22) + thirdLines[i]);
+            for (let i = 0; i < firstLines.length; i++) {
+                const line = rightPad(firstLines[i], 22) + rightPad(secondLines[i], 22) + thirdLines[i];
+                console.log(line.replace(/ +$/,''));
             }
         }
 
@@ -153,13 +154,13 @@
         print3Months(getMonth(year, 9), getMonth(year, 10), getMonth(year, 11));
     }
 
-    var now   = new Date();
-    var year  = now.getFullYear();
-    var month = now.getMonth();
-    var yearRequested = false;
+    const now = new Date();
+    let year  = now.getFullYear();
+    let month = now.getMonth();
+    let yearRequested = false;
 
     // Get the parameters we might use.
-    var parameters = process.argv.slice(2);
+    let parameters = process.argv.slice(2);
 
     // If we have one parameter like '2016-03', split it and treat it as '2016 03'
     if(parameters.length == 1 && /[0-9]{4}-[0-9]{1,2}/.test(parameters[0])){
@@ -172,7 +173,7 @@
     });
 
     if(parameters.length == 1){
-        var param = parameters[0];
+        const param = parameters[0];
         if (param >= 1900) {
             yearRequested = true;
             year = param;
