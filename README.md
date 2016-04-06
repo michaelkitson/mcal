@@ -2,7 +2,7 @@
 $ npm install -g mcal
 /usr/local/bin/mcal -> /usr/local/lib/node_modules/mcal/index.js
 /usr/local/lib
-└── mcal@1.0.0
+└── mcal@1.0.2
 ```
 
 ```
